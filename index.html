@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aqila Sumaiyah | Interactive CV</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#faf6ff;
+  --surface:#ffffff;
+  --surface2:#f1eafa;
+  --text:#30243b;
+  --muted:#81758e;
+  --accent:#8661ad;
+  --accent2:#c69bcf;
+  --line:#e9dff1;
+  --shadow:0 14px 40px #53366d12;
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;transition:.25s}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer}
+.dark{
+  --bg:#1d1724;--surface:#2b2234;--surface2:#392c45;
+  --text:#f7efff;--muted:#c0b1cc;--accent:#d1a9ed;
+  --accent2:#e5c2ed;--line:#493954;--shadow:0 14px 40px #0003;
+}
+.nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1120px;margin:auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-weight:700;font-size:20px;color:var(--accent)}
+.logo span{color:var(--accent2)}
+.nav-links{display:flex;align-items:center;gap:5px;overflow-x:auto}
+.nav-links a,.theme{padding:8px 12px;border:0;border-radius:25px;background:transparent;color:var(--muted);font-size:13px;white-space:nowrap}
+.nav-links a:hover,.theme:hover{background:var(--surface2);color:var(--accent)}
+.container{max-width:1080px;margin:auto;padding:35px 24px 70px}
+.hero{min-height:490px;display:flex;align-items:center;padding:65px 0}
+.hero-content{max-width:760px}
+.eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1,h2,h3,p{margin-top:0}
+h1{font:700 clamp(43px,7vw,76px)/1.1 'Playfair Display',serif;margin:18px 0;color:var(--text)}
+h1 span{color:var(--accent)}
+.hero p{max-width:650px;color:var(--muted);font-size:17px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{border:1px solid var(--accent);padding:11px 18px;border-radius:30px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn:hover{transform:translateY(-3px)}
+.primary{background:var(--accent);color:white}
+.outline{color:var(--accent);background:var(--surface)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:45px;max-width:580px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px;text-align:center;box-shadow:var(--shadow)}
+.stat strong{display:block;color:var(--accent);font:700 25px 'Playfair Display'}
+.stat small{color:var(--muted);font-size:11px}
+.section{padding:38px 0;scroll-margin-top:80px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:22px}
+h2{font:700 34px 'Playfair Display';margin:5px 0;color:var(--accent)}
+.subtitle{font-size:13px;color:var(--muted);margin:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.about-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:16px}
+.about-copy{color:var(--muted)}
+.facts{display:grid;gap:10px}
+.fact{background:var(--surface2);padding:12px 15px;border-radius:13px}
+.fact small{display:block;color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.fact strong{font-size:14px}
+.timeline{border-left:2px solid var(--line);margin-left:9px;padding-left:23px}
+.timeline-item{position:relative;padding-bottom:22px}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-item:before{content:"";position:absolute;left:-30px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--accent);border:3px solid var(--surface2)}
+.timeline-item h3{font-size:17px;margin:3px 0}
+.timeline-item p,.timeline-item li{font-size:13px;color:var(--muted)}
+.timeline-item ul{padding-left:19px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.filter{border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:8px 14px;border-radius:25px;font-size:12px}
+.filter.active,.filter:hover{background:var(--accent);color:white;border-color:var(--accent)}
+.project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.project{background:var(--surface);border:1px solid var(--line);border-radius:19px;padding:20px;box-shadow:var(--shadow)}
+.project-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.project-icon{font-size:27px}
+.tag{font-size:10px;background:var(--surface2);color:var(--accent);padding:5px 10px;border-radius:20px}
+.project h3{margin:13px 0 5px;font-size:18px}
+.project p{color:var(--muted);font-size:13px;margin-bottom:15px}
+.project button{background:transparent;border:0;color:var(--accent);font-weight:700;font-size:12px;padding:0}
+.flash-area{background:var(--surface2);border-radius:20px;padding:22px}
+.flash-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px}
+.flashcard{height:230px;perspective:1000px;cursor:pointer}
+.flash-inner{height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s}
+.flashcard.flipped .flash-inner{transform:rotateY(180deg)}
+.flash-face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:25px}
+.flash-face.back{transform:rotateY(180deg);background:var(--accent);color:white;border-color:var(--accent)}
+.flash-face h3{font:700 25px 'Playfair Display';margin:10px 0}
+.flash-face p{font-size:13px;color:var(--muted);max-width:520px;margin:0}
+.flash-face.back p{color:#fff}
+.flash-controls{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:15px}
+.control{border:1px solid var(--line);background:var(--surface);color:var(--accent);border-radius:25px;padding:9px 16px;font-size:12px;font-weight:700}
+.control:hover{background:var(--accent);color:white}
+#counter{font-size:12px;color:var(--muted)}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.skill{margin:15px 0}
+.skill-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.bar{height:8px;background:var(--surface2);border-radius:20px;overflow:hidden}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:20px}
+.skill-note{font-size:11px;color:var(--muted)}
+.contact{background:var(--accent);color:white;border-radius:22px;padding:30px}
+.contact h2{color:white}
+.contact p{color:#f1e6fa}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.contact-item{border:1px solid #ffffff55;background:#ffffff18;color:white;border-radius:13px;padding:14px;text-align:left;overflow-wrap:anywhere}
+.contact-item small{display:block;color:#f0dff8;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.contact-item strong{font-size:13px}
+.footer{text-align:center;color:var(--muted);font-size:12px;padding-top:30px}
+.modal{display:none;position:fixed;inset:0;background:#170f20b8;z-index:30;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-box{max-width:520px;width:100%;background:var(--surface);border-radius:20px;padding:25px;max-height:85vh;overflow:auto}
+.modal-box h3{font:700 25px 'Playfair Display';color:var(--accent)}
+.modal-box p,.modal-box li{font-size:13px;color:var(--muted)}
+.close{float:right;border:0;background:var(--surface2);color:var(--accent);border-radius:50%;width:32px;height:32px}
+.back-top{position:fixed;bottom:20px;right:20px;border:0;border-radius:50%;width:43px;height:43px;background:var(--accent);color:white;font-size:20px;display:none}
+.back-top.show{display:block}
+@media(max-width:720px){
+ .nav-inner{align-items:flex-start;flex-direction:column}
+ .nav-links{width:100%}
+ .hero{min-height:0;padding:45px 0}
+ .about-grid,.skills-grid,.project-grid{grid-template-columns:1fr}
+ .section-head{display:block}
+ .contact-grid{grid-template-columns:1fr}
+ .stats{gap:8px}
+ .stat{padding:11px 5px}
+}
+@media print{
+ .nav,.actions,.filters,.flash-area,.back-top,.project button,.theme{display:none!important}
+ body{background:white;color:#222}
+ .container{padding:0}
+ .panel,.project{box-shadow:none;break-inside:avoid}
+ .contact{background:white;color:#222;border:1px solid #aaa}
+ .contact h2,.contact p,.contact-item{color:#222}
+}
+</style>
+</head>
+
+<body>
+<header class="nav">
+ <div class="nav-inner">
+  <a class="logo" href="#home">AQILA<span>.</span></a>
+  <nav class="nav-links">
+   <a href="#home">Home</a>
+   <a href="#about">About</a>
+   <a href="#education">Education</a>
+   <a href="#experience">Experience</a>
+   <a href="#projects">Projects</a>
+   <a href="#skills">Skills</a>
+   <a href="#contact">Contact</a>
+   <button class="theme" id="theme">☾ Theme</button>
+  </nav>
+ </div>
+</header>
+
+<main class="container">
+
+<section class="hero" id="home">
+ <div class="hero-content">
+  <div class="eyebrow">Curriculum Vitae · Software Engineering Student</div>
+  <h1>Hello, I'm<br><span>Aqila Sumaiyah.</span></h1>
+  <p>
+   A Software Engineering student who enjoys exploring technology,
+   designing user-friendly interfaces, and building creative digital projects.
+   Always learning, always growing.
+  </p>
+  <div class="actions">
+   <a class="btn primary" href="#projects">Explore My Projects ↘</a>
+   <a class="btn outline" href="#contact">Contact Me ↗</a>
+   <button class="btn outline" onclick="window.print()">Print / Save PDF</button>
+  </div>
+  <div class="stats">
+   <div class="stat"><strong>RPL</strong><small>Field of Study</small></div>
+   <div class="stat"><strong>2026</strong><small>Internship Year</small></div>
+   <div class="stat"><strong>6+</strong><small>Learning Projects</small></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="about">
+ <div class="section-head">
+  <div><div class="eyebrow">01 / Introduction</div><h2>About Me</h2></div>
+  <p class="subtitle">Get to know me a little better.</p>
+ </div>
+ <div class="about-grid">
+  <div class="panel">
+   <p class="about-copy">
+    I am a Software Engineering student at SMKN 12 Jakarta with an interest
+    in web development, UI/UX design, and technology. I enjoy learning new
+    things and turning ideas into useful digital experiences.
+    Through school assignments and internship experience, I continue
+    developing my technical and communication skills.
+   </p>
+   <p class="about-copy">
+    I believe that consistency, curiosity, and a willingness to learn
+    are important parts of personal growth.
+   </p>
+  </div>
+  <div class="panel facts">
+   <div class="fact"><small>Full Name</small><strong>Aqila Sumaiyah Lutfiyanti</strong></div>
+   <div class="fact"><small>School</small><strong>SMKN 12 Jakarta</strong></div>
+   <div class="fact"><small>Major</small><strong>Software Engineering</strong></div>
+   <div class="fact"><small>Location</small><strong>North Jakarta, Indonesia</strong></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="education">
+ <div class="section-head">
+  <div><div class="eyebrow">02 / Academic background</div><h2>Education</h2></div>
+ </div>
+ <div class="panel timeline">
+  <div class="timeline-item">
+   <div class="eyebrow">Current Education</div>
+   <h3>SMKN 12 Jakarta</h3>
+   <p>Software Engineering (Rekayasa Perangkat Lunak)</p>
+   <p>Learning programming fundamentals, website development, database concepts, and user interface design.</p>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="experience">
+ <div class="section-head">
+  <div><div class="eyebrow">03 / Practical learning</div><h2>Internship Experience</h2></div>
+ </div>
+ <div class="panel timeline">
+  <div class="timeline-item">
+   <div class="eyebrow">January – September 2026</div>
+   <h3>Booking Service — Auto2000 Yos Sudarso</h3>
+   <p>Internship experience in the Service Booking area.</p>
+   <ul>
+    <li>Assisted customers with service bookings through WhatsApp and walk-in visits.</li>
+    <li>Helped arrange booking schedules, rescheduling, and service reminders.</li>
+    <li>Followed up with previous customers about their next scheduled service.</li>
+    <li>Prepared Hybrid Healthy Check (HHC) certificates based on inspection results.</li>
+   </ul>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="projects">
+ <div class="section-head">
+  <div><div class="eyebrow">04 / What I've been creating</div><h2>My Projects</h2></div>
+  <p class="subtitle">A collection of my learning journey.</p>
+ </div>
+
+ <div class="filters">
+  <button class="filter active" data-filter="all">All Projects</button>
+  <button class="filter" data-filter="web">Web Development</button>
+  <button class="filter" data-filter="design">UI/UX Design</button>
+  <button class="filter" data-filter="school">School Projects</button>
+ </div>
+
+ <div class="project-grid">
+  <article class="project" data-category="web school">
+   <div class="project-top"><span class="project-icon">🅿️</span><span class="tag">PHP · MySQL</span></div>
+   <h3>Parking Management System</h3>
+   <p>A school project focused on managing parking data, vehicle records, and parking transactions.</p>
+   <button onclick="showProject(0)">Explore project details ↗</button>
+  </article>
+
+  <article class="project" data-category="design">
+   <div class="project-top"><span class="project-icon">📚</span><span class="tag">Figma · UI/UX</span></div>
+   <h3>StudyMate</h3>
+   <p>A learning app interface concept designed to support students in organizing their study activities.</p>
+   <button onclick="showProject(1)">Explore project details ↗</button>
+  </article>
+
+  <article class="project" data-category="design">
+   <div class="project-top"><span class="project-icon">🍜</span><span class="tag">Figma · UI Design</span></div>
+   <h3>FoodieGo</h3>
+   <p>A desktop application interface concept with a soft lilac visual theme.</p>
+   <button onclick="showProject(2)">Explore project details ↗</button>
+  </article>
+
+  <article class="project" data-category="web school">
+   <div class="project-top"><span class="project-icon">🧾</span><span class="tag">Web · Database</span></div>
+   <h3>Smarteen Digital Canteen</h3>
+   <p>A group project concept for digital canteen cashier operations, supplies, and transactions.</p>
+   <button onclick="showProject(3)">Explore project details ↗</button>
+  </article>
+
+  <article class="project" data-category="web school">
+   <div class="project-top"><span class="project-icon">🧠</span><span class="tag">HTML · CSS · JavaScript</span></div>
+   <h3>Vocabulary Quiz Website</h3>
+   <p>An educational website concept featuring flashcards, vocabulary reading, and quizzes.</p>
+   <button onclick="showProject(4)">Explore project details ↗</button>
+  </article>
+
+  <article class="project" data-category="web school">
+   <div class="project-top"><span class="project-icon">👩‍🎓</span><span class="tag">PHP · MySQL</span></div>
+   <h3>Student Data Management</h3>
+   <p>A CRUD application concept for managing student information with search and validation.</p>
+   <button onclick="showProject(5)">Explore project details ↗</button>
+  </article>
+ </div>
+</section>
+
+<section class="section" id="flashcards">
+ <div class="section-head">
+  <div><div class="eyebrow">05 / Interactive corner</div><h2>Project Flashcards</h2></div>
+  <p class="subtitle">Click the card to reveal more.</p>
+ </div>
+ <div class="flash-area">
+  <div class="flash-top">
+   <strong>My Learning Journey</strong>
+   <span class="tag">Tap to flip ↻</span>
+  </div>
+  <div class="flashcard" id="flashcard" onclick="flipCard()">
+   <div class="flash-inner">
+    <div class="flash-face front">
+     <div class="eyebrow">Project flashcard</div>
+     <h3 id="flashTitle">Parking Management System</h3>
+     <p id="flashHint">What did I learn from this project?</p>
+    </div>
+    <div class="flash-face back">
+     <div class="eyebrow" style="color:#f5e8ff">What I learned</div>
+     <h3 id="flashBackTitle">Building with PHP & MySQL</h3>
+     <p id="flashDescription">Understanding how data can be stored and managed in a web application.</p>
+    </div>
+   </div>
+  </div>
+  <div class="flash-controls">
+   <button class="control" onclick="previousCard(event)">← Previous</button>
+   <span id="counter">1 / 6</span>
+   <button class="control" onclick="nextCard(event)">Next →</button>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="skills">
+ <div class="section-head">
+  <div><div class="eyebrow">06 / Capabilities</div><h2>Skills & Strengths</h2></div>
+ </div>
+ <div class="skills-grid">
+  <div class="panel">
+   <h3>Technical Skills</h3>
+   <div class="skill"><div class="skill-label"><span>HTML & CSS</span><span>Learning</span></div><div class="bar"><span style="width:75%"></span></div></div>
+   <div class="skill"><div class="skill-label"><span>PHP</span><span>Learning</span></div><div class="bar"><span style="width:55%"></span></div></div>
+   <div class="skill"><div class="skill-label"><span>MySQL</span><span>Learning</span></div><div class="bar"><span style="width:55%"></span></div></div>
+   <div class="skill"><div class="skill-label"><span>Figma</span><span>Learning</span></div><div class="bar"><span style="width:70%"></span></div></div>
+   <p class="skill-note">These bars are visual estimates of my current learning experience.</p>
+  </div>
+  <div class="panel">
+   <h3>Personal Skills</h3>
+   <div class="chips">
+    <span class="tag">Communication</span>
+    <span class="tag">Teamwork</span>
+    <span class="tag">Creativity</span>
+    <span class="tag">Problem-solving</span>
+    <span class="tag">Responsibility</span>
+    <span class="tag">Time Management</span>
+    <span class="tag">Willingness to Learn</span>
+   </div>
+   <p class="about-copy" style="margin-top:20px">I value clear communication, teamwork, responsibility, and continuous improvement.</p>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="contact">
+ <div class="contact">
+  <div class="eyebrow" style="color:#f2dfff">07 / Get in touch</div>
+  <h2>Let's Connect!</h2>
+  <p>Thank you for visiting my interactive CV. Feel free to reach out.</p>
+  <div class="contact-grid">
+   <a class="contact-item" href="mailto:aqilasumaiyah@gmail.com"><small>Email · Click to send</small><strong>aqilasumaiyah@gmail.com</strong></a>
+   <a class="contact-item" href="https://wa.me/6289676585425" target="_blank" rel="noopener"><small>WhatsApp · Click to chat</small><strong>+62 896-7658-5425</strong></a>
+   <a class="contact-item" href="https://www.google.com/maps/search/?api=1&query=North+Jakarta+Indonesia" target="_blank" rel="noopener"><small>Location · Open map</small><strong>North Jakarta, Indonesia ↗</strong></a>
+   <button class="contact-item" id="copyEmail"><small>Quick action</small><strong>Copy email address</strong></button>
+  </div>
+ </div>
+</section>
+
+<footer class="footer">
+ Thank you for taking the time to explore my CV.<br>
+ © 2026 Aqila Sumaiyah Lutfiyanti
+</footer>
+</main>
+
+<div class="modal" id="projectModal" onclick="closeOutside(event)">
+ <div class="modal-box">
+  <button class="close" onclick="closeModal()">×</button>
+  <div class="eyebrow">Project overview</div>
+  <h3 id="modalTitle"></h3>
+  <p id="modalDescription"></p>
+  <strong>Key learning points</strong>
+  <ul id="modalPoints"></ul>
+  <button class="control" onclick="closeModal()">Close</button>
+ </div>
+</div>
+
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+<script>
+const projects = [
+ {title:"Parking Management System",description:"A school project about managing parking operations and vehicle records.",points:["Working with PHP and MySQL","Managing vehicle and parking data","Understanding create, read, update, and delete operations","Building a user interf
